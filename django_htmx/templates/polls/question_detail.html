@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Question</h2>
+
+<div class="card m-2">
+    <div class="card-body bg-light">
+        <b>{{ object.text }}</b>
+    </div>
+  </div>
+
+
+<div class="container p-3">
+
+    <h3>Choices</h3>
+
+    <ul class="list-group">
+        {% for choice in object.choice_set.all %}
+        <li class="list-group-item">{{ choice.text }}</li>
+        {% endfor %}
+    </ul>
+
+</div>
+
+{% endblock content %}
