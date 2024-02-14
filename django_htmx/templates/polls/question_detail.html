@@ -22,6 +22,10 @@
             <span class="badge rounded-pill bg-light text-dark ms-3">
                 {{ choice.vote_set.count}}
             </span>
+            {% if choice == vote %}
+            - You voted!
+            {% endif %}
+
         </li>
         {% endfor %}
     </ul>
