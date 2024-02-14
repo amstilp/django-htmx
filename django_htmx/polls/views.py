@@ -1,5 +1,7 @@
-from django.views.generic import DetailView
+from django.views.generic import DetailView, View
+from django.views.generic.detail import SingleObjectMixin
 from django_tables2 import SingleTableView
+from django.shortcuts import redirect
 
 from . import models, tables
 
@@ -28,3 +30,24 @@ class QuestionList(SingleTableView):
     table_class = tables.QuestionTable
     model = models.Question
     template_name = "polls/question_list.html"
+
+
+class VoteCreate(SingleObjectMixin, View):
+
+    model = models.Choice
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        try:
+            vote = models.Vote.objects.get(
+                user=self.request.user,
+                choice__question=self.object.question,
+            )
+            vote.choice = self.object
+        except models.Vote.DoesNotExist:
+            vote = models.Vote(
+                user=self.request.user,
+                choice=self.object,
+            )
+        vote.save()
+        return redirect(self.object.question.get_absolute_url())

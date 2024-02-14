@@ -18,12 +18,27 @@
     <ul class="list-group">
         {% for choice in object.choice_set.all %}
         <li class="list-group-item">
-            {{ choice.text }}
-            <span class="badge rounded-pill bg-light text-dark ms-3">
-                {{ choice.vote_set.count}}
-            </span>
-            {% if choice == vote %}
-            - You voted!
+            <div class="container">
+                {% if choice == vote %}
+                <b>
+                {% endif %}
+                {{ choice.text }}
+                {% if choice == vote %}
+                </b>
+                {% endif %}
+                <span class="badge rounded-pill {% if choice == vote%}bg-success{% else %}bg-light text-dark{% endif %} ms-3">
+                    {{ choice.vote_set.count}}
+                </span>
+            </div>
+            <div class="container">
+            {% if choice != vote %}
+                <form method="POST" action="{% url 'polls:vote' choice.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-sm btn-success">
+                        Vote!
+                    </button>
+                </form>
+            </div>
             {% endif %}
 
         </li>
