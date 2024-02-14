@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "django_extensions",
+    "crispy_forms",
     "django_bootstrap5",
+    "crispy_bootstrap5",
     "django_htmx.polls",
 ]
 
@@ -131,3 +133,7 @@ AUTH_PASSWORD_VALIDATORS = []
 
 
 LOGIN_REDIRECT_URL = "index"
+
+# Crispy forms
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
