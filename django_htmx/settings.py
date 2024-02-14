@@ -128,3 +128,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # DEVELOPMENT ONLY - this overrides any password validation.
 AUTH_PASSWORD_VALIDATORS = []
+
+
+LOGIN_REDIRECT_URL = "index"
