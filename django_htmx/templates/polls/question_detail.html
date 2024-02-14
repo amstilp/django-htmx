@@ -17,7 +17,12 @@
 
     <ul class="list-group">
         {% for choice in object.choice_set.all %}
-        <li class="list-group-item">{{ choice.text }}</li>
+        <li class="list-group-item">
+            {{ choice.text }}
+            <span class="badge rounded-pill bg-light text-dark ms-3">
+                {{ choice.vote_set.count}}
+            </span>
+        </li>
         {% endfor %}
     </ul>
 
