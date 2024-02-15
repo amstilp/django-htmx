@@ -17,11 +17,11 @@ class QuestionDetail(DetailView):
         vote = None
         if self.request.user.is_authenticated:
             try:
-                vote = models.Choice.objects.filter(
-                    question=self.object,
-                    vote__user=self.request.user
+                vote = models.Vote.objects.filter(
+                    choice__question=self.object,
+                    user=self.request.user
                 ).get()
-            except models.Choice.DoesNotExist:
+            except models.Vote.DoesNotExist:
                 pass
         context["vote"] = vote
         return context
