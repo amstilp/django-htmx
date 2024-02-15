@@ -2,6 +2,7 @@ from django.views.generic import DetailView, View
 from django.views.generic.detail import SingleObjectMixin
 from django_tables2 import SingleTableView
 from django.shortcuts import redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from . import models, tables
 
@@ -32,7 +33,7 @@ class QuestionList(SingleTableView):
     template_name = "polls/question_list.html"
 
 
-class VoteCreate(SingleObjectMixin, View):
+class VoteCreate(LoginRequiredMixin, SingleObjectMixin, View):
 
     model = models.Choice
 
