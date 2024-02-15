@@ -5,45 +5,46 @@
 <h2>Question</h2>
 
 <div class="card m-2">
-    <div class="card-body bg-light">
-        <b>{{ object.text }}</b>
-    </div>
+  <div class="card-body bg-light">
+    <b>{{ object.text }}</b>
   </div>
+</div>
 
 
 <div class="container p-3">
 
-    <h3>Choices</h3>
+  <h3>Choices</h3>
 
-    <ul class="list-group">
-        {% for choice in object.choice_set.all %}
-        <li class="list-group-item">
-            <div class="container">
-                {% if choice == vote %}
-                <b>
-                {% endif %}
-                {{ choice.text }}
-                {% if choice == vote %}
-                </b>
-                {% endif %}
-                <span class="badge rounded-pill {% if choice == vote%}bg-success{% else %}bg-light text-dark{% endif %} ms-3">
-                    {{ choice.vote_set.count}}
-                </span>
-            </div>
-            <div class="container">
-            {% if choice != vote %}
+  <ul class="list-group">
+    {% for choice in object.choice_set.all %}
+    <li class="list-group-item">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-1">
+            <span class="badge rounded-pill {% if choice == vote%}bg-success{% else %}bg-light text-dark{% endif %}">
+              {{ choice.vote_set.count}}
+            </span>
+          </div>
+          <div class="col-md-10">
+          {% if choice == vote %}<b>{% endif %}
+            {{ choice.text }}
+            {% if choice == vote %}</b>{% endif %}
+          </div>
+          <div class="col-md-1">
+            {% if user.is_authenticated and choice != vote %}
                 <form method="POST" action="{% url 'polls:vote' choice.pk %}">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-sm btn-success">
-                        Vote!
-                    </button>
+                        <button type="submit" class="btn btn-sm btn-primary">
+                            Vote!
+                        </button>
                 </form>
-            </div>
             {% endif %}
-
-        </li>
-        {% endfor %}
-    </ul>
+          </div>
+        </div>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
 
 </div>
 
