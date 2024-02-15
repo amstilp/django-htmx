@@ -1,7 +1,7 @@
 from django.views.generic import DetailView, View
 from django.views.generic.detail import SingleObjectMixin
 from django_tables2 import SingleTableView
-from django.shortcuts import redirect
+from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from . import models, tables
@@ -56,4 +56,7 @@ class VoteCreate(LoginRequiredMixin, SingleObjectMixin, View):
                 choice=self.object,
             )
         vote.save()
-        return redirect(self.object.question.get_absolute_url())
+        return render(request, "polls/snippets/choices.html", {
+            "vote": vote,
+            "choices": self.object.question.choice_set.all()
+        })
