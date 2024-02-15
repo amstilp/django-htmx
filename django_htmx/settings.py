@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "django_extensions",
     "crispy_forms",
-    "django_bootstrap5",
     "crispy_bootstrap5",
     "django_tables2",
     "django_htmx.polls",
