@@ -1,4 +1,5 @@
-<ul class="list-group">
+<div id="choices-list">
+  <ul class="list-group" id="choices-list-group">
     {% for choice in choices %}
     <li class="list-group-item">
       <div class="container">
@@ -16,9 +17,16 @@
           <div class="col-md-1">
             {% if user.is_authenticated %}
               {% if choice != vote.choice %}
-                <form method="POST" action="{% url 'polls:vote' choice.pk %}">
+                <form
+                    method="POST"
+                    action="{% url 'polls:vote' choice.pk %}">
                     {% csrf_token %}
-                        <button type="submit" class="btn btn-sm btn-primary">
+                        <button
+                            type="submit"
+                            class="btn btn-sm btn-primary"
+                            hx-post="{% url 'polls:vote' choice.pk %}"
+                            hx-target="#choices-list"
+                            hx-swap="outerHTML">
                             Vote!
                         </button>
                 </form>
@@ -32,3 +40,4 @@
     </li>
     {% endfor %}
   </ul>
+</div>
