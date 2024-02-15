@@ -1,5 +1,5 @@
 """
-URL configuration for django_htmx project.
+URL configuration for django_htmx_demo project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -23,5 +23,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", TemplateView.as_view(template_name="index.html"), name="index"),
     path("accounts/", include("django.contrib.auth.urls")),
-    path("polls/", include("django_htmx.polls.urls")),
+    path("polls/", include("django_htmx_demo.polls.urls")),
 ]
