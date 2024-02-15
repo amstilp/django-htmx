@@ -28,9 +28,14 @@ class QuestionDetail(DetailView):
 
 
 class QuestionList(SingleTableView):
-    table_class = tables.QuestionTable
     model = models.Question
     template_name = "polls/question_list.html"
+
+    def get_table_class(self):
+        if self.request.user.is_authenticated:
+            return tables.QuestionTableAuthenticated
+        else:
+            return tables.QuestionTable
 
 
 class VoteCreate(LoginRequiredMixin, SingleObjectMixin, View):
